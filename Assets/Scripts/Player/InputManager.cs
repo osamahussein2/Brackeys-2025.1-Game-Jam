@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     private PlayerInputActions playerInput;
     private PlayerInputActions.PlayingActionsActions playingActions;
     private PlayerMove playerMove;
+    private PlayerShoot playerShoot;
 
     public static InputManager Instance { get; private set; }
 
@@ -20,8 +21,10 @@ public class InputManager : MonoBehaviour
         playingActions = playerInput.PlayingActions;
         playingActions.Enable();
         playerMove = GetComponent<PlayerMove>();
+        playerShoot = GetComponent<PlayerShoot>();
 
         playingActions.Dash.started += ctx => playerMove.Dash(playingActions.Movement.ReadValue<Vector2>());
+        playingActions.RMB.started += ctx => playerShoot.Shoot();
     }
 
     private void Update()
