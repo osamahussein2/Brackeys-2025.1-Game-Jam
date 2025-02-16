@@ -1580,6 +1580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66865d8ad1d8e14ca6f52efade01e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hookLine: {fileID: 8479384262838152401, guid: 2c3d5fbd117f149beb808f5f7d0ab132, type: 3}
   bulletPrefab: {fileID: 7578975240946673781, guid: 56d76ae2b426c254a9f51374fdabe55e, type: 3}
 --- !u!114 &1295679147
 MonoBehaviour:

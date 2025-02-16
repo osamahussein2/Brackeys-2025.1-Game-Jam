@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
+    // for the grappling hook
+    // float speed = 0.1f;
+    // public GameObject hookLine;
     [SerializeField] private GameObject bulletPrefab;
 
     public PlayerShoot Instance { get; private set; }
@@ -22,4 +25,34 @@ public class PlayerShoot : MonoBehaviour
 
         bullet.SetBulletMoveDirection(direction);
     }
+    // helper function
+    float dist(Vector2 a, Vector2 b)
+    {
+        return Mathf.Sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+    }
+    // fix
+    /*
+    public void Grapple()
+    {
+        if (true) // add a clause for score or something
+        {
+            Vector3 direction = (new Vector3(Input.mousePosition.x - Screen.width/2, Input.mousePosition.y - Screen.height/2) - transform.position).normalized;
+            BulletPrefab bullet = Instantiate(bulletPrefab, transform.position + direction, 
+                Quaternion.FromToRotation(new Vector3(1,0,0), direction)).GetComponent<BulletPrefab>();
+            bullet.SetBulletMoveDirection(direction);
+            while (transform.position != bullet.transform.position)
+            {
+                Vector3 end1 = transform.position;
+                Vector3 end2 = bullet.transform.position;
+                float scale = Mathf.Sqrt(Mathf.Pow(end1.x - end2.x, 2) + Mathf.Pow(end1.y - end2.y, 2) + Mathf.Pow(end1.z - end2.z, 2));
+                hookLine.transform.localScale = new Vector3(scale, transform.localScale.y, transform.localScale.z);
+
+                hookLine.transform.position = (end1 + end2) / 2;
+                hookLine.transform.rotation = Quaternion.LookRotation(end1 - end2);
+                hookLine.transform.Rotate(new Vector3(0, 90, 0));
+                transform.position = Vector3.MoveTowards(transform.position, bullet.transform.position, speed);
+            }
+        }
+    }
+    */
 }
