@@ -6,7 +6,7 @@ public class PlayerShoot : MonoBehaviour
 {
     // for the grappling hook
     // float speed = 0.1f;
-    // public GameObject hookLine;
+    // public GameObject hookLinePrefab;
     [SerializeField] private GameObject bulletPrefab;
 
     public PlayerShoot Instance { get; private set; }
@@ -30,7 +30,6 @@ public class PlayerShoot : MonoBehaviour
     {
         return Mathf.Sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
     }
-    // fix
     /*
     public void Grapple()
     {
@@ -40,18 +39,16 @@ public class PlayerShoot : MonoBehaviour
             BulletPrefab bullet = Instantiate(bulletPrefab, transform.position + direction, 
                 Quaternion.FromToRotation(new Vector3(1,0,0), direction)).GetComponent<BulletPrefab>();
             bullet.SetBulletMoveDirection(direction);
-            while (transform.position != bullet.transform.position)
-            {
-                Vector3 end1 = transform.position;
-                Vector3 end2 = bullet.transform.position;
-                float scale = Mathf.Sqrt(Mathf.Pow(end1.x - end2.x, 2) + Mathf.Pow(end1.y - end2.y, 2) + Mathf.Pow(end1.z - end2.z, 2));
-                hookLine.transform.localScale = new Vector3(scale, transform.localScale.y, transform.localScale.z);
+            Vector3 end1 = transform.position;
+            Vector3 end2 = bullet.transform.position;
+            float scale = Mathf.Sqrt(Mathf.Pow(end1.x - end2.x, 2) + Mathf.Pow(end1.y - end2.y, 2) + Mathf.Pow(end1.z - end2.z, 2));
+            GameObject hookLine = Instantiate(hookLinePrefab);
+            hookLine.transform.localScale = new Vector3(transform.localScale.x, scale, transform.localScale.z);
 
-                hookLine.transform.position = (end1 + end2) / 2;
-                hookLine.transform.rotation = Quaternion.LookRotation(end1 - end2);
-                hookLine.transform.Rotate(new Vector3(0, 90, 0));
-                transform.position = Vector3.MoveTowards(transform.position, bullet.transform.position, speed);
-            }
+            hookLine.transform.position = (end1 + end2) / 2;
+            hookLine.transform.rotation = Quaternion.LookRotation(end1 - end2);
+            hookLine.transform.Rotate(new Vector3(0, 90, 0));
+            // transform.position = Vector3.MoveTowards(transform.position, bullet.transform.position, speed);
         }
     }
     */

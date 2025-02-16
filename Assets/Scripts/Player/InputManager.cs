@@ -25,7 +25,7 @@ public class InputManager : MonoBehaviour
 
         playingActions.Dash.started += ctx => playerMove.Dash(playingActions.Movement.ReadValue<Vector2>());
         playingActions.RMB.started += ctx => playerShoot.Shoot();
-        // playingActions.LMB.started += ctx => playerShoot.Grapple(); grapple?
+        // playingActions.secondary_gun.started += ctx => playerShoot.Grapple();
     }
 
     private void Update()

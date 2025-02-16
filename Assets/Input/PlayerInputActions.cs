@@ -71,6 +71,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""secondary_gun"",
+                    ""type"": ""Button"",
+                    ""id"": ""8f7abf54-5d4b-4398-84fc-f029a31f439c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -271,6 +280,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d90ed43c-03bb-4eb6-8d46-89849b224f3d"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""secondary_gun"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -284,6 +304,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayingActions_Dash = m_PlayingActions.FindAction("Dash", throwIfNotFound: true);
         m_PlayingActions_RMB = m_PlayingActions.FindAction("RMB", throwIfNotFound: true);
         m_PlayingActions_LMB = m_PlayingActions.FindAction("LMB", throwIfNotFound: true);
+        m_PlayingActions_secondary_gun = m_PlayingActions.FindAction("secondary_gun", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -350,6 +371,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayingActions_Dash;
     private readonly InputAction m_PlayingActions_RMB;
     private readonly InputAction m_PlayingActions_LMB;
+    private readonly InputAction m_PlayingActions_secondary_gun;
     public struct PlayingActionsActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -359,6 +381,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_PlayingActions_Dash;
         public InputAction @RMB => m_Wrapper.m_PlayingActions_RMB;
         public InputAction @LMB => m_Wrapper.m_PlayingActions_LMB;
+        public InputAction @secondary_gun => m_Wrapper.m_PlayingActions_secondary_gun;
         public InputActionMap Get() { return m_Wrapper.m_PlayingActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -383,6 +406,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @LMB.started += instance.OnLMB;
             @LMB.performed += instance.OnLMB;
             @LMB.canceled += instance.OnLMB;
+            @secondary_gun.started += instance.OnSecondary_gun;
+            @secondary_gun.performed += instance.OnSecondary_gun;
+            @secondary_gun.canceled += instance.OnSecondary_gun;
         }
 
         private void UnregisterCallbacks(IPlayingActionsActions instance)
@@ -402,6 +428,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @LMB.started -= instance.OnLMB;
             @LMB.performed -= instance.OnLMB;
             @LMB.canceled -= instance.OnLMB;
+            @secondary_gun.started -= instance.OnSecondary_gun;
+            @secondary_gun.performed -= instance.OnSecondary_gun;
+            @secondary_gun.canceled -= instance.OnSecondary_gun;
         }
 
         public void RemoveCallbacks(IPlayingActionsActions instance)
@@ -426,5 +455,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnRMB(InputAction.CallbackContext context);
         void OnLMB(InputAction.CallbackContext context);
+        void OnSecondary_gun(InputAction.CallbackContext context);
     }
 }
