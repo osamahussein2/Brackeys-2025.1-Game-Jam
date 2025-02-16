@@ -49,6 +49,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (!isDashing)
         {
+            if (!isSprinting) { direction *= 0.6f; }
             rb.velocity = direction * speed;
         }
     }
