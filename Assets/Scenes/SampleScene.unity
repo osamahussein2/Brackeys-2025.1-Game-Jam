@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 406539540}
   - component: {fileID: 406539538}
   - component: {fileID: 406539542}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -593,7 +593,7 @@ GameObject:
   - component: {fileID: 419420804}
   - component: {fileID: 419420803}
   - component: {fileID: 419420802}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1083,7 +1083,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d308d936137114147905ef46f46ec251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: 0
   zombiePrefab: {fileID: 3390118448943539191, guid: 9fe5e7b3d88b746e38c82317985c4b6a, type: 3}
+  player: {fileID: 1295679137}
 --- !u!1 &641804168
 GameObject:
   m_ObjectHideFlags: 0
