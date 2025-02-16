@@ -15,10 +15,15 @@ public class PlayerMove : MonoBehaviour
     private Vector3 dashStartPos = Vector3.zero;
     private float dashCooldownTimer = 1f;
     private float dashCooldownTimerMax = 0.7f;
+
+    private Animator playerAnimator;
+
     private void Awake()
     {
         Instance = this;
         rb = GetComponent<Rigidbody2D>();
+
+        playerAnimator = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -28,6 +33,8 @@ public class PlayerMove : MonoBehaviour
             if (hit)
             {
                 isDashing = false;
+
+                playerAnimator.SetBool("IsDashing", false);
             }
             else
             {
@@ -36,12 +43,20 @@ public class PlayerMove : MonoBehaviour
                 {
                     isDashing = false;
                     dashCooldownTimer = 0f;
+
+                    playerAnimator.SetBool("IsDashing", false);
                 }
             }
         }
         else
         {
             if (dashCooldownTimer <= 1f) { dashCooldownTimer += Time.deltaTime; }
+        }
+
+        // If the player isn't walking, play the idle animation
+        if (playerAnimator.GetBool("IsWalking") == false)
+        {
+            playerAnimator.Play("PlayerIdle");
         }
     }
 
@@ -52,14 +67,37 @@ public class PlayerMove : MonoBehaviour
             if (!isSprinting) { direction *= 0.6f; }
             rb.velocity = direction * speed;
         }
+
+        // If the player doesn't hold any of the WASD keys, play the idle animation
+        if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) &&
+            !Input.GetKey(KeyCode.D))
+        {
+            playerAnimator.SetBool("IsWalking", false);
+            playerAnimator.Play("PlayerIdle");
+        }
+
+        // Otherwise, play the walking animation
+        else
+        {
+            playerAnimator.SetBool("IsWalking", true);
+            playerAnimator.Play("PlayerWalk");
+        }
     }
 
     public LayerMask playerCollisionLayers;
     public void Dash(Vector2 direction)
     {
         if (dashCooldownTimer < dashCooldownTimerMax) { return; }
-        isDashing = true;
-        dashDirection = direction;
-        dashStartPos = transform.position;
+
+        // Only make the player dash when they're actually walking
+        if (playerAnimator.GetBool("IsWalking") == true)
+        {
+            isDashing = true;
+            dashDirection = direction;
+            dashStartPos = transform.position;
+
+            playerAnimator.SetBool("IsDashing", true);
+            playerAnimator.Play("PlayerDash");
+        }
     }
 }
