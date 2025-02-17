@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class gameLoader : MonoBehaviour
 {
+    public GameObject zombieGen;
     public GameObject menu;
     public GameObject game;
     // Start is called before the first frame update
@@ -19,6 +20,10 @@ public class gameLoader : MonoBehaviour
         {
             menu.SetActive(false);
             game.SetActive(true);
+            foreach (GameObject zombie in zombieGen.GetComponent<zombieGen>().zombies)
+            {
+                zombie.SetActive(true);
+            }
         }
     }
 }

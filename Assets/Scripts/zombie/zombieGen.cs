@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class zombieGen : MonoBehaviour
 {
+    public List<GameObject> zombies = new List<GameObject>();
     public Transform game;
     public int count;
     float timer;
@@ -21,6 +22,13 @@ public class zombieGen : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            foreach (GameObject zombie in zombies)
+            {
+                zombie.SetActive(false);
+            }
+        }
         timer += 1f * Time.deltaTime;
         if (timer > 0.5f && count < 200)
         {
@@ -28,7 +36,7 @@ public class zombieGen : MonoBehaviour
             while (dist(pos, player.transform.position) < 2f)
                 pos = player.transform.position + new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), 0);
             GameObject zombie = Instantiate(zombiePrefab, pos, Quaternion.identity);
-            zombie.transform.SetParent(game);
+            zombies.Add(zombie);
             timer = 0f;
         }
     }
