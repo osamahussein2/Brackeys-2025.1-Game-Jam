@@ -30,7 +30,7 @@ public class zombieGen : MonoBehaviour
             }
         }
         timer += 1f * Time.deltaTime;
-        if (timer > 0.5f && count < 200)
+        if (timer > 0.5f && count < 50)
         {
             Vector3 pos = player.transform.position;
             while (dist(pos, player.transform.position) < 2f)
