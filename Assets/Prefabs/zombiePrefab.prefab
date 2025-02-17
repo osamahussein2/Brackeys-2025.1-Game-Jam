@@ -98,16 +98,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6155cb37f5ef5450d8c614247c185594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zombieGen: {fileID: 0}
   rayLen: 5
   sightRange: 5
   player: {fileID: 0}
-  speed: 0.075
+  speed: 0.025
 --- !u!1 &7823927332471363193
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 3658248390096406865}
   - component: {fileID: 174861191903771257}
