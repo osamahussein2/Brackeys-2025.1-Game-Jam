@@ -24,7 +24,7 @@ public class InputManager : MonoBehaviour
         playerShoot = GetComponent<PlayerShoot>();
 
         playingActions.Dash.started += ctx => playerMove.Dash(playingActions.Movement.ReadValue<Vector2>());
-        playingActions.RMB.started += ctx => playerShoot.Shoot();
+        playingActions.LMB.started += ctx => playerShoot.Shoot();
     }
 
     private void Update()

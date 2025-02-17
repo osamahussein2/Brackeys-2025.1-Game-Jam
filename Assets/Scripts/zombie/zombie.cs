@@ -67,7 +67,7 @@ public class zombie : MonoBehaviour, IDamagable
         {
             seesPlayer = true;
         }
-        else
+        if (!seesPlayer)
         {
             moveRandomly();
         }
