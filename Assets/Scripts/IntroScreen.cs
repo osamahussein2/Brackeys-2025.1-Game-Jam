@@ -24,7 +24,9 @@ public class IntroScreen : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer >= maxIntroTime)
+        // Destroy the intro screen either when the max intro time has been reached
+        // Or the player presses the SPACE key
+        if (timer >= maxIntroTime || Input.GetKeyDown(KeyCode.Space))
         {
             loadingCanvas.gameObject.SetActive(true);
 
