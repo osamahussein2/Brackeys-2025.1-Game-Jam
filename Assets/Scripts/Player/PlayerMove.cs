@@ -19,8 +19,6 @@ public class PlayerMove : MonoBehaviour
 
     private Animator playerAnimator;
 
-    [SerializeField] private Camera followCamera;
-
     private SpriteRenderer playerSprite;
 
     private void Awake()
@@ -130,45 +128,25 @@ public class PlayerMove : MonoBehaviour
 
     private void PlayerBoundaries()
     {
-        if (transform.position.x >= 37.0f)
+        // Player boundaries only
+        if (transform.position.x >= 19.9f)
         {
-            transform.position = new Vector2(37.0f, transform.position.y);
+            transform.position = new Vector2(19.9f, transform.position.y);
         }
 
-        else if (transform.position.x <= -37.0f)
+        else if (transform.position.x <= -19.9f)
         {
-            transform.position = new Vector2(-37.0f, transform.position.y);
+            transform.position = new Vector2(-19.9f, transform.position.y);
         }
 
-        if (transform.position.y >= 23.0f)
+        if (transform.position.y >= 15.9f)
         {
-            transform.position = new Vector2(transform.position.x, 23.0f);
+            transform.position = new Vector2(transform.position.x, 15.9f);
         }
 
-        else if (transform.position.y <= -23.0f)
+        else if (transform.position.y <= -15.9f)
         {
-            transform.position = new Vector2(transform.position.x, -23.0f);
-        }
-
-        // Camera bounds
-        if (followCamera.transform.position.x <= -19.9f)
-        {
-            followCamera.transform.position = new Vector3(-19.9f, followCamera.transform.position.y, -1f);
-        }
-
-        else if (followCamera.transform.position.x >= 19.9f)
-        {
-            followCamera.transform.position = new Vector3(19.9f, followCamera.transform.position.y, -1f);
-        }
-
-        if (followCamera.transform.position.y <= -15.9f)
-        {
-            followCamera.transform.position = new Vector3(followCamera.transform.position.x, -15.9f, -1f);
-        }
-
-        else if (followCamera.transform.position.y >= 15.9f)
-        {
-            followCamera.transform.position = new Vector3(followCamera.transform.position.x, 15.9f, -1f);
+            transform.position = new Vector2(transform.position.x, -15.9f);
         }
     }
 }
