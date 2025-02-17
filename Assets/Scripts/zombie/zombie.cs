@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class zombie : MonoBehaviour, IDamagable
 {
+    int enemyLayerMask;
+    int layerMask;
     public zombieGen zombieGen;
     float timer = 0f;
     public float rayLen = 1f;
@@ -16,6 +18,8 @@ public class zombie : MonoBehaviour, IDamagable
     // Start is called before the first frame update
     void Awake()
     {
+        enemyLayerMask = LayerMask.GetMask("Enemy");
+        layerMask = ~enemyLayerMask;
         zombieGen = GameObject.Find("zombieGenerator").GetComponent<zombieGen>();
         zombieGen.count += 1;
         randPos = transform.position;
@@ -45,7 +49,9 @@ public class zombie : MonoBehaviour, IDamagable
     void FixedUpdate()
     {
         if (dist(player.transform.position, transform.position) > sightRange && seesPlayer == true)
+        {
             seesPlayer = false;
+        }
         if (seesPlayer)
         {
             Vector3 direction = player.transform.position - transform.position;
@@ -54,9 +60,9 @@ public class zombie : MonoBehaviour, IDamagable
         }
         Vector3 right = Quaternion.Euler(0, 0, -coneSize) * transform.up;
         Vector3 left = Quaternion.Euler(0, 0, coneSize) * transform.up;
-        RaycastHit2D hitCenter = Physics2D.Raycast(transform.position, transform.up, rayLen);
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, left, rayLen);
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, right, rayLen);
+        RaycastHit2D hitCenter = Physics2D.Raycast(transform.position, transform.up, rayLen, layerMask);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, left, rayLen, layerMask);
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, right, rayLen, layerMask);
         if (hitCenter || hitLeft || hitRight)
         {
             seesPlayer = true;

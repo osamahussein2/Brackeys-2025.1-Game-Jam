@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class zombieGen : MonoBehaviour
 {
+    public Transform game;
     public int count;
     float timer;
     public GameObject zombiePrefab;
@@ -11,7 +12,6 @@ public class zombieGen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -27,7 +27,8 @@ public class zombieGen : MonoBehaviour
             Vector3 pos = player.transform.position;
             while (dist(pos, player.transform.position) < 2f)
                 pos = player.transform.position + new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), 0);
-            Instantiate(zombiePrefab, pos, Quaternion.identity);
+            GameObject zombie = Instantiate(zombiePrefab, pos, Quaternion.identity);
+            zombie.transform.SetParent(game);
             timer = 0f;
         }
     }
