@@ -21,12 +21,16 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] private Camera followCamera;
 
+    private SpriteRenderer playerSprite;
+
     private void Awake()
     {
         Instance = this;
         rb = GetComponent<Rigidbody2D>();
 
         playerAnimator = GetComponent<Animator>();
+
+        playerSprite = GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
@@ -36,8 +40,6 @@ public class PlayerMove : MonoBehaviour
             if (hit)
             {
                 isDashing = false;
-
-                playerAnimator.SetBool("IsDashing", false);
             }
             else
             {
@@ -46,20 +48,12 @@ public class PlayerMove : MonoBehaviour
                 {
                     isDashing = false;
                     dashCooldownTimer = 0f;
-
-                    playerAnimator.SetBool("IsDashing", false);
                 }
             }
         }
         else
         {
             if (dashCooldownTimer <= 1f) { dashCooldownTimer += Time.deltaTime; }
-        }
-
-        // If the player isn't walking, play the idle animation
-        if (playerAnimator.GetBool("IsWalking") == false)
-        {
-            playerAnimator.Play("PlayerIdle");
         }
 
         PlayerBoundaries();
@@ -77,15 +71,45 @@ public class PlayerMove : MonoBehaviour
         if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) &&
             !Input.GetKey(KeyCode.D))
         {
-            playerAnimator.SetBool("IsWalking", false);
+            playerAnimator.SetBool("IsWalkingUp", false);
+            playerAnimator.SetBool("IsWalkingDown", false);
+            playerAnimator.SetBool("IsWalkingRight", false);
+            playerAnimator.SetBool("IsWalkingLeft", false);
+
             playerAnimator.Play("PlayerIdle");
         }
 
         // Otherwise, play the walking animation
-        else
+        else if (Input.GetKey(KeyCode.W))
         {
-            playerAnimator.SetBool("IsWalking", true);
-            playerAnimator.Play("PlayerWalk");
+            playerAnimator.SetBool("IsWalkingUp", true);
+            playerAnimator.Play("PlayerMovingUp");
+
+            playerSprite.flipY = false; // Don't flip the sprite vertically
+        }
+
+        else if (Input.GetKey(KeyCode.A))
+        {
+            playerAnimator.SetBool("IsWalkingLeft", true);
+            playerAnimator.Play("PlayerMovingLeft");
+
+            playerSprite.flipX = true; // Flip the sprite horizontally
+        }
+
+        else if (Input.GetKey(KeyCode.S))
+        {
+            playerAnimator.SetBool("IsWalkingDown", true);
+            playerAnimator.Play("PlayerMovingDown");
+
+            playerSprite.flipY = false; // Don't flip the sprite vertically
+        }
+
+        else if (Input.GetKey(KeyCode.D))
+        {
+            playerAnimator.SetBool("IsWalkingRight", true);
+            playerAnimator.Play("PlayerMovingRight");
+
+            playerSprite.flipX = false; // Don't flip the sprite horizontally
         }
     }
 
@@ -95,14 +119,12 @@ public class PlayerMove : MonoBehaviour
         if (dashCooldownTimer < dashCooldownTimerMax) { return; }
 
         // Only make the player dash when they're actually walking
-        if (playerAnimator.GetBool("IsWalking") == true)
+        if (playerAnimator.GetBool("IsWalkingUp") == true || playerAnimator.GetBool("IsWalkingDown") == true ||
+            playerAnimator.GetBool("IsWalkingRight") == true || playerAnimator.GetBool("IsWalkingLeft") == true)
         {
             isDashing = true;
             dashDirection = direction;
             dashStartPos = transform.position;
-
-            playerAnimator.SetBool("IsDashing", true);
-            playerAnimator.Play("PlayerDash");
         }
     }
 
