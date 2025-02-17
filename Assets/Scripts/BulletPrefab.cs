@@ -6,7 +6,7 @@ using UnityEngine;
 public class BulletPrefab : MonoBehaviour
 {
     private float lifeTime = 1.5f;
-    private float bulletDamageAmount = 50f;
+    private float bulletDamageAmount = 60f;
     private float bulletSpeed = 50f;
     private Vector3 moveDirection;
 

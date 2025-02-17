@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class zombie : MonoBehaviour
+public class zombie : MonoBehaviour, IDamagable
 {
     public zombieGen zombieGen;
     float timer = 0f;
@@ -64,6 +64,17 @@ public class zombie : MonoBehaviour
         else
         {
             moveRandomly();
+        }
+    }
+
+    private float zombieHealth =100f;
+
+    public void Damage(float damageAmount)
+    {
+        zombieHealth -= damageAmount;
+        if (zombieHealth <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
