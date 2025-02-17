@@ -66,4 +66,31 @@ public class zombie : MonoBehaviour
             moveRandomly();
         }
     }
+    /*
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.tag == "wall")
+        {
+            MoveAroundWall(other.transform.position, other.transform.localScale);
+        }
+    }
+    void MoveAroundWall(Vector3 position, Vector3 scale)
+    {
+        float move;
+        if (position.x > transform.position.x)
+            move = transform.position.x - position.x + scale.x;
+        else
+            move = -(position.x - transform.position.x + scale.x);
+        Vector3 newPos = new Vector3(transform.position.x + move, transform.position.y, transform.position.z);
+        while (transform.position != newPos)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, newPos, speed);
+        }
+        newPos = new Vector3(transform.position.x, transform.position.y + scale.y, transform.position.z);
+        while (transform.position != newPos)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, newPos, speed);
+        }
+        
+    }
+    */
 }

@@ -25,12 +25,12 @@ public class PlayerShoot : MonoBehaviour
 
         bullet.SetBulletMoveDirection(direction);
     }
+    /*
     // helper function
     float dist(Vector2 a, Vector2 b)
     {
         return Mathf.Sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
     }
-    /*
     public void Grapple()
     {
         if (true) // add a clause for score or something
