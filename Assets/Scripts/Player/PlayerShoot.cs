@@ -10,6 +10,8 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject mainCamera;
 
+    [SerializeField] private GameObject crosshair;
+
     public PlayerShoot Instance { get; private set; }
 
     private void Awake()
@@ -18,14 +20,24 @@ public class PlayerShoot : MonoBehaviour
     }
 
     public void Shoot()
-    { 
-        Vector3 direction = (new Vector3(Input.mousePosition.x - (Screen.width/2 + transform.position.x - mainCamera.transform.position.x ), 
-            Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+    {
+        // If player is moving and the cross hair is pointing where the player is currently facing
+        // And if the player is in an idle state as well
+        if (PlayerMove.playerMovingUp && crosshair.transform.position.y > transform.position.y ||
+            PlayerMove.playerMovingDown && crosshair.transform.position.y < transform.position.y ||
+            PlayerMove.playerMovingRight && crosshair.transform.position.x > transform.position.x ||
+            PlayerMove.playerMovingLeft && crosshair.transform.position.x < transform.position.x ||
+            !PlayerMove.playerMovingUp && !PlayerMove.playerMovingDown && !PlayerMove.playerMovingRight &&
+            !PlayerMove.playerMovingLeft)
+        {
+            Vector3 direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
 
-        BulletPrefab bullet = Instantiate(bulletPrefab, transform.position + direction, 
-            Quaternion.FromToRotation(new Vector3(1,0,0), direction)).GetComponent<BulletPrefab>();
+            BulletPrefab bullet = Instantiate(bulletPrefab, transform.position + direction,
+                Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
 
-        bullet.SetBulletMoveDirection(direction);
+            bullet.SetBulletMoveDirection(direction);
+        }
     }
     /*
     // helper function

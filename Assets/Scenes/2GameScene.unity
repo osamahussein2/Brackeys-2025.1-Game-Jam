@@ -3444,6 +3444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7578975240946673781, guid: 56d76ae2b426c254a9f51374fdabe55e, type: 3}
   mainCamera: {fileID: 519420028}
+  crosshair: {fileID: 503862317}
 --- !u!114 &1295679147
 MonoBehaviour:
   m_ObjectHideFlags: 0

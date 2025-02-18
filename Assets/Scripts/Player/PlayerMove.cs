@@ -21,6 +21,8 @@ public class PlayerMove : MonoBehaviour
 
     private SpriteRenderer playerSprite;
 
+    public static bool playerMovingLeft, playerMovingRight, playerMovingUp, playerMovingDown;
+
     private void Awake()
     {
         Instance = this;
@@ -65,50 +67,59 @@ public class PlayerMove : MonoBehaviour
             rb.velocity = direction * speed;
         }
 
-        // If the player doesn't hold any of the WASD keys, play the idle animation
-        if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) &&
-            !Input.GetKey(KeyCode.D))
-        {
-            playerAnimator.SetBool("IsWalkingUp", false);
-            playerAnimator.SetBool("IsWalkingDown", false);
-            playerAnimator.SetBool("IsWalkingRight", false);
-            playerAnimator.SetBool("IsWalkingLeft", false);
-
-            playerAnimator.Play("PlayerIdle");
-        }
-
         // Otherwise, play the walking animation
-        else if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
-            playerAnimator.SetBool("IsWalkingUp", true);
-            playerAnimator.Play("PlayerMovingUp");
+            playerMovingUp = true;
 
             playerSprite.flipY = false; // Don't flip the sprite vertically
         }
 
-        else if (Input.GetKey(KeyCode.A))
+        else if (!Input.GetKey(KeyCode.W))
         {
-            playerAnimator.SetBool("IsWalkingLeft", true);
-            playerAnimator.Play("PlayerMovingLeft");
+            playerMovingUp = false;
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            playerMovingLeft = true;
 
             playerSprite.flipX = true; // Flip the sprite horizontally
         }
 
-        else if (Input.GetKey(KeyCode.S))
+        else if (!Input.GetKey(KeyCode.A))
         {
-            playerAnimator.SetBool("IsWalkingDown", true);
-            playerAnimator.Play("PlayerMovingDown");
+            playerMovingLeft = false;
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            playerMovingDown = true;
 
             playerSprite.flipY = false; // Don't flip the sprite vertically
         }
 
-        else if (Input.GetKey(KeyCode.D))
+        else if (!Input.GetKey(KeyCode.S))
         {
-            playerAnimator.SetBool("IsWalkingRight", true);
-            playerAnimator.Play("PlayerMovingRight");
+            playerMovingDown = false;
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            playerMovingRight = true;
 
             playerSprite.flipX = false; // Don't flip the sprite horizontally
         }
+
+        else if (!Input.GetKey(KeyCode.D))
+        {
+            playerMovingRight = false;
+        }
+
+        playerAnimator.SetBool("IsWalkingUp", playerMovingUp);
+        playerAnimator.SetBool("IsWalkingDown", playerMovingDown);
+        playerAnimator.SetBool("IsWalkingLeft", playerMovingLeft);
+        playerAnimator.SetBool("IsWalkingRight", playerMovingRight);
     }
 
     public LayerMask playerCollisionLayers;
