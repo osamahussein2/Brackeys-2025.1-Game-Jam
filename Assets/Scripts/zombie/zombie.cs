@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class zombie : MonoBehaviour, IDamagable
 {
+    float deathTimer = 0f;
     int enemyLayerMask;
     int layerMask;
     public zombieGen zombieGen;
@@ -240,7 +241,6 @@ public class zombie : MonoBehaviour, IDamagable
 
         if (zombieHealth <= 0)
         {
-            float deathTimer = 0.0f;
             deathTimer += Time.deltaTime;
 
             // Play the zombie death sound
