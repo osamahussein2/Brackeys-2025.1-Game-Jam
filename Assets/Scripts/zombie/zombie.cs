@@ -21,6 +21,10 @@ public class zombie : MonoBehaviour, IDamagable
 
     public GameObject bloodPrefab;
 
+    private AudioSource zombieSoundEffect;
+
+    private int zombieSoundIndex;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -33,7 +37,52 @@ public class zombie : MonoBehaviour, IDamagable
 
         zombieAnimator = GetComponent<Animator>();
         zombieSprite = GetComponent<SpriteRenderer>();
+
+        zombieSoundEffect = GetComponent<AudioSource>();
+
+        zombieSoundIndex = Random.Range(1, 4);
     }
+
+    private void Update()
+    {
+        // Have different zombies play different sounds
+        switch (zombieSoundIndex)
+        {
+            case 1:
+
+                zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie sound 1");
+                zombieSoundEffect.Play();
+
+                break;
+
+            case 2:
+
+                zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie sound 2");
+                zombieSoundEffect.Play();
+
+                break;
+
+            case 3:
+
+                zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie sound 3");
+                zombieSoundEffect.Play();
+
+                break;
+
+            default: // Only if the number isn't 1-3
+
+                zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie sound 3");
+                zombieSoundEffect.Play();
+
+                break;
+        }
+
+        if (!zombieSoundEffect.isPlaying)
+        {
+            zombieSoundEffect.Play();
+        }
+    }
+
     private void OnDestroy() {
         zombieGen.count -= 1;
     }
@@ -162,11 +211,27 @@ public class zombie : MonoBehaviour, IDamagable
         }
     }
 
-    private float zombieHealth =100f;
+    public static float zombieHealth =100f;
 
     public void Damage(float damageAmount)
     {
         zombieHealth -= damageAmount;
+
+        // Play the zombie damaged from bullet sound for now
+        zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie takes bullet");
+        zombieSoundEffect.Play();
+
+        // Player the different zombie damage sound depending on weapon
+
+        /* 
+        
+        zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie takes fist or bat");
+        zombieSoundEffect.Play();
+
+        zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie takes fist or bat 2");
+        zombieSoundEffect.Play();
+
+        */
 
         // Set the blood sprite to its default color
         bloodPrefab.GetComponent<SpriteRenderer>().color = Color.white;
@@ -175,7 +240,17 @@ public class zombie : MonoBehaviour, IDamagable
 
         if (zombieHealth <= 0)
         {
-            Destroy(gameObject);
+            float deathTimer = 0.0f;
+            deathTimer += Time.deltaTime;
+
+            // Play the zombie death sound
+            zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie death");
+            zombieSoundEffect.Play();
+
+            if (deathTimer >= 2.0f)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

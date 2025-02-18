@@ -75,7 +75,7 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // If the player collided with a zombie and their health is greater than 0
-        if (collision.gameObject.tag == "Player" && playerHealth > 0)
+        if (collision.gameObject.tag == "Player" && playerHealth > 0f && zombie.zombieHealth > 0f)
         {
             // Set the clip to player taking damage
             playerSoundEffect.clip = Resources.Load<AudioClip>("SFX/Player/Player Takes Damage");
