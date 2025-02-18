@@ -19,6 +19,8 @@ public class zombie : MonoBehaviour, IDamagable
     private Animator zombieAnimator;
     private SpriteRenderer zombieSprite;
 
+    public GameObject bloodPrefab;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -165,6 +167,9 @@ public class zombie : MonoBehaviour, IDamagable
     public void Damage(float damageAmount)
     {
         zombieHealth -= damageAmount;
+
+        Instantiate(bloodPrefab, transform.position, Quaternion.identity);
+
         if (zombieHealth <= 0)
         {
             Destroy(gameObject);
