@@ -7,8 +7,8 @@ public class FistPrefab : MonoBehaviour
 {
     float timer;
     private float lifeTime = 1.5f;
-    private float bulletDamageAmount = 60f;
-    private float bulletSpeed = 50f;
+    private float fistDamageAmount = 15f;
+    private float fistSpeed = 50f;
     private Vector3 moveDirection;
 
     private Vector3 currentPosition;
@@ -28,11 +28,11 @@ public class FistPrefab : MonoBehaviour
         {
             if (hit.collider.gameObject.TryGetComponent<IDamagable>(out IDamagable damagableObject))
             {
-                damagableObject.Damage(bulletDamageAmount);
+                damagableObject.Damage(fistDamageAmount);
             }
             Destroy(gameObject);
         }
-        transform.position += moveDirection * bulletSpeed * Time.deltaTime;
+        transform.position += moveDirection * fistSpeed * Time.deltaTime;
         lastPosition = transform.position;
         if (timer > 0.01f)
         {
