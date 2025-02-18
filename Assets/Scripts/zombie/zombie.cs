@@ -168,6 +168,9 @@ public class zombie : MonoBehaviour, IDamagable
     {
         zombieHealth -= damageAmount;
 
+        // Set the blood sprite to its default color
+        bloodPrefab.GetComponent<SpriteRenderer>().color = Color.white;
+
         Instantiate(bloodPrefab, transform.position, Quaternion.identity);
 
         if (zombieHealth <= 0)

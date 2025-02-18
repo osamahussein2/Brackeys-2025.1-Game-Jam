@@ -32,7 +32,7 @@ public class BloodPrefab : MonoBehaviour
     {
         ShowBlood();
 
-        bloodSprite.color = new Color(1f, 1f, 1f, bloodAlpha);
+        bloodSprite.color = new Color(bloodSprite.color.r, bloodSprite.color.g, bloodSprite.color.b, bloodAlpha);
 
         timer += Time.deltaTime;
 
