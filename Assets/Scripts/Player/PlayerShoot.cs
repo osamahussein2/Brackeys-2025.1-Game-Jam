@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
+    [SerializeField] swap_items swapper;
     // for the grappling hook
     // float speed = 0.1f;
     // public GameObject hookLinePrefab;
+    [SerializeField] private GameObject fistPrefab;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject mainCamera;
 
@@ -30,13 +32,49 @@ public class PlayerShoot : MonoBehaviour
             !PlayerMove.playerMovingUp && !PlayerMove.playerMovingDown && !PlayerMove.playerMovingRight &&
             !PlayerMove.playerMovingLeft)
         {
-            Vector3 direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
-                Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+            Vector3 direction;
+            switch (swapper.curr_item)
+            {
+                
+                case 1:
+                    direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                        Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+                    FistPrefab fist = Instantiate(fistPrefab, transform.position + direction,
+                        Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<FistPrefab>();
+                    fist.SetFistMoveDirection(direction);
+                    break;
+                case 2:
+                    // bat
+                    break;
+                case 3:
+                    // smg
+                    break;
+                case 4:
+                    // pistol
+                    direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                        Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+                    BulletPrefab bullet = Instantiate(bulletPrefab, transform.position + direction,
+                        Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+                    bullet.SetBulletMoveDirection(direction);
+                    break;
+                case 5:
+                    // mg
+                    break;
+                case 6:
+                    // rifle
+                    break;
+                case 7:
+                    // grenade
+                    break;
+                case 8:
+                    // sniper
+                    break;
+                default:
+                    // none
+                    break;
+                    
 
-            BulletPrefab bullet = Instantiate(bulletPrefab, transform.position + direction,
-                Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
-
-            bullet.SetBulletMoveDirection(direction);
+            }
         }
     }
     /*
