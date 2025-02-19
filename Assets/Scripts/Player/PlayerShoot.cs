@@ -46,6 +46,8 @@ public class PlayerShoot : MonoBehaviour
                     fist = Instantiate(fistPrefab, transform.position + direction,
                         Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<FistPrefab>();
 
+                    fist.transform.parent = GameObject.Find("game").GetComponent<Transform>();
+
                     fist.SetFistMoveDirection(direction);
 
                     break;
@@ -60,6 +62,8 @@ public class PlayerShoot : MonoBehaviour
                     bullet = Instantiate(bulletPrefab, transform.position + direction,
                         Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
 
+                    bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
+
                     bullet.SetBulletMoveDirection(direction);
 
                     break;
@@ -70,6 +74,8 @@ public class PlayerShoot : MonoBehaviour
 
                     bullet = Instantiate(bulletPrefab, transform.position + direction,
                         Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+
+                    bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
 
                     bullet.SetBulletMoveDirection(direction);
 
@@ -82,6 +88,8 @@ public class PlayerShoot : MonoBehaviour
                     bullet = Instantiate(bulletPrefab, transform.position + direction,
                         Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
 
+                    bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
+
                     bullet.SetBulletMoveDirection(direction);
 
                     break;
@@ -92,6 +100,8 @@ public class PlayerShoot : MonoBehaviour
 
                     bullet = Instantiate(bulletPrefab, transform.position + direction,
                         Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+
+                    bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
 
                     bullet.SetBulletMoveDirection(direction);
 
@@ -106,6 +116,8 @@ public class PlayerShoot : MonoBehaviour
 
                     bullet = Instantiate(bulletPrefab, transform.position + direction,
                         Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+
+                    bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
 
                     bullet.SetBulletMoveDirection(direction);
 

@@ -46,12 +46,16 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
     {
         playerHealth -= damageAmount;
 
-        // Set the blood sprite to red color to indicate that the player is bleeding
-        bloodPrefab.GetComponent<SpriteRenderer>().color = Color.red;
+        if (damageAmount > 0)
+        {
+            // Set the blood sprite to red color to indicate that the player is bleeding
+            bloodPrefab.GetComponent<SpriteRenderer>().color = Color.red;
 
-        Instantiate(bloodPrefab, transform.position, Quaternion.identity);
+            GameObject blood = Instantiate(bloodPrefab, transform.position, Quaternion.identity);
+            blood.transform.parent = GameObject.Find("game").GetComponent<Transform>();
+        }
 
-        if (playerHealth <= 0 ) 
+        if (playerHealth <= 0) 
         {
             deathTimer += Time.deltaTime;
 
@@ -68,7 +72,7 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
     }
 
     private void Die()
-    { 
+    {
         //Game over logic
     }
 
@@ -79,22 +83,26 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
         {
             // Set the clip to player taking damage
             playerSoundEffect.clip = Resources.Load<AudioClip>("SFX/Player/Player Takes Damage");
-            playerSoundEffect.Play();
         }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && playerHealth > 0f && zombie.zombieHealth > 0f)
         {
             // Damage the player
             Damage(1f * Time.deltaTime);
+
+            if (!playerSoundEffect.isPlaying)
+            {
+                playerSoundEffect.Play();
+            }
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && playerHealth > 0f && zombie.zombieHealth > 0f)
         {
             Damage(0f);
         }

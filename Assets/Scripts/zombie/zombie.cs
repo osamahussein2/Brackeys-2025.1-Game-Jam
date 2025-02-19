@@ -240,7 +240,8 @@ public class zombie : MonoBehaviour, IDamagable
         // Set the blood sprite to its default color
         bloodPrefab.GetComponent<SpriteRenderer>().color = Color.white;
 
-        Instantiate(bloodPrefab, transform.position, Quaternion.identity);
+        GameObject blood = Instantiate(bloodPrefab, transform.position, Quaternion.identity);
+        blood.transform.parent = GameObject.Find("game").GetComponent<Transform>();
 
         if (zombieHealth <= 0)
         {
