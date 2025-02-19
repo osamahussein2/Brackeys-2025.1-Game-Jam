@@ -27,6 +27,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private AudioSource footstepSounds;
 
     private int concreteSoundIndex;
+    private int mudSoundIndex;
+    private int grassSoundIndex;
 
     private void Awake()
     {
@@ -190,11 +192,52 @@ public class PlayerMove : MonoBehaviour
                 footstepSounds.Play();
             }
         }
+
+        if (collision.gameObject.tag == "Mud")
+        {
+            mudSoundIndex = Random.Range(1, 4);
+
+            if (mudSoundIndex == 1)
+            {
+                footstepSounds.clip = Resources.Load<AudioClip>("SFX/Footsteps/muddy footsteps 1");
+                footstepSounds.Play();
+            }
+
+            if (mudSoundIndex == 2)
+            {
+                footstepSounds.clip = Resources.Load<AudioClip>("SFX/Footsteps/muddy footsteps 2");
+                footstepSounds.Play();
+            }
+
+            if (mudSoundIndex == 3)
+            {
+                footstepSounds.clip = Resources.Load<AudioClip>("SFX/Footsteps/muddy footsteps 3");
+                footstepSounds.Play();
+            }
+        }
+
+        if (collision.gameObject.tag == "Grass")
+        {
+            grassSoundIndex = Random.Range(1, 3);
+
+            if (grassSoundIndex == 1)
+            {
+                footstepSounds.clip = Resources.Load<AudioClip>("SFX/Footsteps/grassfootsteps3");
+                footstepSounds.Play();
+            }
+
+            if (grassSoundIndex == 2)
+            {
+                footstepSounds.clip = Resources.Load<AudioClip>("SFX/Footsteps/grassfootsteps4");
+                footstepSounds.Play();
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Concrete")
+        if (collision.gameObject.tag == "Concrete" || collision.gameObject.tag == "Mud" ||
+            collision.gameObject.tag == "Grass")
         {
             if (!footstepSounds.isPlaying)
             {
@@ -205,6 +248,10 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        footstepSounds.clip = null;
+        if (collider.gameObject.tag == "Concrete" || collider.gameObject.tag == "Mud" ||
+            collider.gameObject.tag == "Grass")
+        {
+            footstepSounds.clip = null;
+        }
     }
 }

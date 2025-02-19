@@ -11,8 +11,8 @@ public class LevelLoader : MonoBehaviour
     {
         // Make sure the first level is loaded
         levels[0].SetActive(true);
-        levels[1].SetActive(false);
-        levels[2].SetActive(false);
+        levels[1].SetActive(false); // Level 2
+        levels[2].SetActive(false); // Level 2.2
     }
 
     // Update is called once per frame
