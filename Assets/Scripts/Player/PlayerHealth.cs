@@ -79,12 +79,7 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
         {
             // Set the clip to player taking damage
             playerSoundEffect.clip = Resources.Load<AudioClip>("SFX/Player/Player Takes Damage");
-
-            // If the sound isn't playing, play it
-            if (!playerSoundEffect.isPlaying)
-            {
-                playerSoundEffect.Play();
-            }
+            playerSoundEffect.Play();
         }
     }
 

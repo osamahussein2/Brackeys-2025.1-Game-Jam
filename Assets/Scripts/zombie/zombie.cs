@@ -52,35 +52,50 @@ public class zombie : MonoBehaviour, IDamagable
             case 1:
 
                 zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie sound 1");
-                zombieSoundEffect.Play();
+                zombieSoundEffect.volume = 0.3f;
+
+                if (!zombieSoundEffect.isPlaying)
+                {
+                    zombieSoundEffect.Play();
+                }
 
                 break;
 
             case 2:
 
                 zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie sound 2");
-                zombieSoundEffect.Play();
+                zombieSoundEffect.volume = 0.3f;
+
+                if (!zombieSoundEffect.isPlaying)
+                {
+                    zombieSoundEffect.Play();
+                }
 
                 break;
 
             case 3:
 
                 zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie sound 3");
-                zombieSoundEffect.Play();
+                zombieSoundEffect.volume = 0.3f;
+
+                if (!zombieSoundEffect.isPlaying)
+                {
+                    zombieSoundEffect.Play();
+                }
 
                 break;
 
             default: // Only if the number isn't 1-3
 
                 zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie sound 3");
-                zombieSoundEffect.Play();
+                zombieSoundEffect.volume = 0.3f;
+
+                if (!zombieSoundEffect.isPlaying)
+                {
+                    zombieSoundEffect.Play();
+                }
 
                 break;
-        }
-
-        if (!zombieSoundEffect.isPlaying)
-        {
-            zombieSoundEffect.Play();
         }
     }
 
@@ -220,6 +235,8 @@ public class zombie : MonoBehaviour, IDamagable
 
         // Play the zombie damaged from bullet sound for now
         zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie takes bullet");
+        zombieSoundEffect.volume = 0.3f;
+
         zombieSoundEffect.Play();
 
         // Player the different zombie damage sound depending on weapon
@@ -245,6 +262,8 @@ public class zombie : MonoBehaviour, IDamagable
 
             // Play the zombie death sound
             zombieSoundEffect.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie death");
+            zombieSoundEffect.volume = 1f;
+
             zombieSoundEffect.Play();
 
             if (deathTimer >= 2.0f)

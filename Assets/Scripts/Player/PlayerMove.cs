@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -22,6 +23,10 @@ public class PlayerMove : MonoBehaviour
     private SpriteRenderer playerSprite;
 
     public static bool playerMovingLeft, playerMovingRight, playerMovingUp, playerMovingDown;
+
+    [SerializeField] private AudioSource footstepSounds;
+
+    private int concreteSoundIndex;
 
     private void Awake()
     {
@@ -159,5 +164,47 @@ public class PlayerMove : MonoBehaviour
         {
             transform.position = new Vector2(transform.position.x, -15.9f);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Concrete")
+        {
+            concreteSoundIndex = Random.Range(1, 4);
+
+            if (concreteSoundIndex == 1)
+            {
+                footstepSounds.clip = Resources.Load<AudioClip>("SFX/Footsteps/concrete footsteps 1");
+                footstepSounds.Play();
+            }
+
+            if (concreteSoundIndex == 2)
+            {
+                footstepSounds.clip = Resources.Load<AudioClip>("SFX/Footsteps/concrete footsteps 2");
+                footstepSounds.Play();
+            }
+
+            if (concreteSoundIndex == 3)
+            {
+                footstepSounds.clip = Resources.Load<AudioClip>("SFX/Footsteps/concrete footsteps 3");
+                footstepSounds.Play();
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Concrete")
+        {
+            if (!footstepSounds.isPlaying)
+            {
+                footstepSounds.Play();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        footstepSounds.clip = null;
     }
 }
