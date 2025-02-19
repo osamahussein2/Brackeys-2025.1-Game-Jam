@@ -16,6 +16,10 @@ public class PlayerShoot : MonoBehaviour
 
     public PlayerShoot Instance { get; private set; }
 
+    private Vector3 direction;
+    private FistPrefab fist;
+    private BulletPrefab bullet;
+
     private void Awake()
     {
         Instance = this;
@@ -32,42 +36,79 @@ public class PlayerShoot : MonoBehaviour
             !PlayerMove.playerMovingUp && !PlayerMove.playerMovingDown && !PlayerMove.playerMovingRight &&
             !PlayerMove.playerMovingLeft)
         {
-            Vector3 direction;
             switch (swapper.curr_item)
             {
                 
-                case 1:
+                case 0:
                     direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
                         Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
-                    FistPrefab fist = Instantiate(fistPrefab, transform.position + direction,
+
+                    fist = Instantiate(fistPrefab, transform.position + direction,
                         Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<FistPrefab>();
+
                     fist.SetFistMoveDirection(direction);
+
                     break;
-                case 2:
+                case 1:
                     // bat
                     break;
-                case 3:
+                case 2:
                     // smg
+                    direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                        Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+
+                    bullet = Instantiate(bulletPrefab, transform.position + direction,
+                        Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+
+                    bullet.SetBulletMoveDirection(direction);
+
                     break;
-                case 4:
+                case 3:
                     // pistol
                     direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
                         Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
-                    BulletPrefab bullet = Instantiate(bulletPrefab, transform.position + direction,
+
+                    bullet = Instantiate(bulletPrefab, transform.position + direction,
                         Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+
                     bullet.SetBulletMoveDirection(direction);
+
+                    break;
+                case 4:
+                    // mg
+                    direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                        Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+
+                    bullet = Instantiate(bulletPrefab, transform.position + direction,
+                        Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+
+                    bullet.SetBulletMoveDirection(direction);
+
                     break;
                 case 5:
-                    // mg
+                    // rifle
+                    direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                        Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+
+                    bullet = Instantiate(bulletPrefab, transform.position + direction,
+                        Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+
+                    bullet.SetBulletMoveDirection(direction);
+
                     break;
                 case 6:
-                    // rifle
-                    break;
-                case 7:
                     // grenade
                     break;
-                case 8:
+                case 7:
                     // sniper
+                    direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                        Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+
+                    bullet = Instantiate(bulletPrefab, transform.position + direction,
+                        Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+
+                    bullet.SetBulletMoveDirection(direction);
+
                     break;
                 default:
                     // none

@@ -16,6 +16,8 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
 
     private AudioSource playerSoundEffect;
 
+    float deathTimer = 0.0f;
+
     public static PlayerHealth Instance {  get; private set; }
 
     private void Awake()
@@ -51,16 +53,14 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
 
         if (playerHealth <= 0 ) 
         {
-            float timer = 0.0f;
-
-            timer += Time.deltaTime;
+            deathTimer += Time.deltaTime;
 
             // Play the player death sound
             playerSoundEffect.clip = Resources.Load<AudioClip>("SFX/Player/player death");
             playerSoundEffect.Play();
 
             // After the death sound is done playing, call the die function
-            if (timer >= 2f)
+            if (deathTimer >= 2f)
             {
                 Die();
             }
