@@ -15,16 +15,10 @@ public class menuLoader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && game.activeInHierarchy && !menu.activeInHierarchy)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             game.SetActive(false);
             menu.SetActive(true);
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Escape) && !game.activeInHierarchy && menu.activeInHierarchy)
-        {
-            game.SetActive(true);
-            menu.SetActive(false);
         }
     }
 }
