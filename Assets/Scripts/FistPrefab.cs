@@ -13,6 +13,20 @@ public class FistPrefab : MonoBehaviour
 
     private Vector3 currentPosition;
     private Vector3 lastPosition;
+
+    private AudioSource fistSound;
+
+    private int fistSoundIndex;
+
+    private void Start()
+    {
+        fistSoundIndex = Random.Range(1, 4);
+
+        fistSound = GetComponent<AudioSource>();
+
+        PlayFistSound();
+    }
+
     private void Awake()
     {
         if(!gameObject.IsDestroyed()) { Destroy(gameObject, lifeTime); }
@@ -22,7 +36,7 @@ public class FistPrefab : MonoBehaviour
     {
         timer += 1f * Time.deltaTime;
         currentPosition = transform.position;
-        Vector3 difference = currentPosition - lastPosition;
+        /*Vector3 difference = currentPosition - lastPosition;
         RaycastHit2D hit = Physics2D.Raycast(currentPosition, lastPosition, difference.magnitude);
         if (hit)
         {
@@ -31,7 +45,7 @@ public class FistPrefab : MonoBehaviour
                 damagableObject.Damage(fistDamageAmount);
             }
             Destroy(gameObject);
-        }
+        }*/
         transform.position += moveDirection * fistSpeed * Time.deltaTime;
         lastPosition = transform.position;
         if (timer > 0.01f)
@@ -42,5 +56,21 @@ public class FistPrefab : MonoBehaviour
     public void SetFistMoveDirection(Vector3 direction)
     {
         moveDirection = direction;
+    }
+
+    private void PlayFistSound()
+    {
+        switch (swap_items.curr_item)
+        {
+            case 0:
+                // fist sound only
+                fistSound.clip = Resources.Load<AudioClip>($"SFX/Weapons/fists {fistSoundIndex}");
+                fistSound.Play();
+
+                break;
+
+            default:
+                break;
+        }
     }
 }

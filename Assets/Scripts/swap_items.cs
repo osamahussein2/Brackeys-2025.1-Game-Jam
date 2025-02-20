@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class swap_items : MonoBehaviour
 {
-    public int curr_item;
+    public static int curr_item;
 
     [SerializeField] private Image weaponImage;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
-    [SerializeField] swap_items swapper;
+    //[SerializeField] swap_items swapper;
     // for the grappling hook
     // float speed = 0.1f;
     // public GameObject hookLinePrefab;
@@ -36,9 +36,8 @@ public class PlayerShoot : MonoBehaviour
             !PlayerMove.playerMovingUp && !PlayerMove.playerMovingDown && !PlayerMove.playerMovingRight &&
             !PlayerMove.playerMovingLeft)
         {
-            switch (swapper.curr_item)
+            switch (swap_items.curr_item)
             {
-                
                 case 0:
                     direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
                         Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
@@ -94,7 +93,7 @@ public class PlayerShoot : MonoBehaviour
 
                     break;
                 case 5:
-                    // rifle
+                    // shotgun
                     direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
                         Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
 
