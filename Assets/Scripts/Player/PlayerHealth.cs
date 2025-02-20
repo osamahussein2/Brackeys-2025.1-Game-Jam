@@ -20,6 +20,13 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
 
     public static PlayerHealth Instance {  get; private set; }
 
+    private bool playerDied;
+
+    private void Start()
+    {
+        playerDied = false;
+    }
+
     private void Awake()
     {
         Instance = this;
@@ -40,6 +47,16 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
         // Update the player and house HP slider values based on player and house health, respectively
         playerHP.value = playerHealth;
         houseHP.value = houseHealth;
+
+        if (playerDied)
+        {
+            deathTimer += Time.deltaTime;
+        }
+
+        else
+        {
+            deathTimer = 0f;
+        }
     }
 
     public void Damage(float damageAmount)
@@ -57,7 +74,7 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
 
         if (playerHealth <= 0) 
         {
-            deathTimer += Time.deltaTime;
+            playerDied = true;
 
             // Play the player death sound
             playerSoundEffect.clip = Resources.Load<AudioClip>("SFX/Player/player death");

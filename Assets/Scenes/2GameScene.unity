@@ -4900,7 +4900,7 @@ GameObject:
   - component: {fileID: 1487440009}
   - component: {fileID: 1487440010}
   - component: {fileID: 1487440011}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ConcreteCollider
   m_TagString: Concrete
   m_Icon: {fileID: 0}

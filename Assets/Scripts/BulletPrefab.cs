@@ -36,7 +36,7 @@ public class BulletPrefab : MonoBehaviour
     private void Update()
     {
         currentPosition = transform.position;
-        /*Vector3 difference = currentPosition - lastPosition;
+        Vector3 difference = currentPosition - lastPosition;
         RaycastHit2D hit = Physics2D.Raycast(currentPosition, lastPosition, difference.magnitude);
         if (hit)
         {
@@ -45,7 +45,7 @@ public class BulletPrefab : MonoBehaviour
                 damagableObject.Damage(bulletDamageAmount);
             }
             Destroy(gameObject);
-        }*/
+        }
         transform.position += moveDirection * bulletSpeed * Time.deltaTime;
         lastPosition = transform.position;
     }

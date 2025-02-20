@@ -27,6 +27,13 @@ public class zombie : MonoBehaviour, IDamagable
 
     private int zombieSoundIndex;
 
+    private bool zombieDied;
+
+    private void Start()
+    {
+        zombieDied = false;
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -47,6 +54,16 @@ public class zombie : MonoBehaviour, IDamagable
 
     private void Update()
     {
+        if (zombieDied)
+        {
+            deathTimer += Time.deltaTime;
+        }
+
+        else
+        {
+            deathTimer = 0f;
+        }
+
         if (zombieHealth > 0)
         {
             // Have different zombies play different sounds
@@ -218,7 +235,7 @@ public class zombie : MonoBehaviour, IDamagable
     {
         zombieHealth -= damageAmount;
 
-        if (damageAmount > 0)
+        if (damageAmount > 0 && zombieHealth > 0)
         {
             // Play the zombie damaged from bullet sound for now
             zombieHealthSounds.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie takes bullet");
@@ -245,13 +262,13 @@ public class zombie : MonoBehaviour, IDamagable
 
         if (zombieHealth <= 0)
         {
-            deathTimer += Time.deltaTime;
+            zombieDied = true;
 
             // Play the zombie death sound
             zombieHealthSounds.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie death");
             zombieHealthSounds.Play();
 
-            if (deathTimer >= 2.0f)
+            if (deathTimer >= 3.0f)
             {
                 Destroy(gameObject);
             }

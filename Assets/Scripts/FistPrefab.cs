@@ -36,7 +36,7 @@ public class FistPrefab : MonoBehaviour
     {
         timer += 1f * Time.deltaTime;
         currentPosition = transform.position;
-        /*Vector3 difference = currentPosition - lastPosition;
+        Vector3 difference = currentPosition - lastPosition;
         RaycastHit2D hit = Physics2D.Raycast(currentPosition, lastPosition, difference.magnitude);
         if (hit)
         {
@@ -45,7 +45,7 @@ public class FistPrefab : MonoBehaviour
                 damagableObject.Damage(fistDamageAmount);
             }
             Destroy(gameObject);
-        }*/
+        }
         transform.position += moveDirection * fistSpeed * Time.deltaTime;
         lastPosition = transform.position;
         if (timer > 0.01f)
