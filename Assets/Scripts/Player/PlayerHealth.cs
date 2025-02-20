@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHealth :MonoBehaviour,  IDamagable
@@ -18,6 +19,8 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
 
     float deathTimer = 0.0f;
 
+    private float playerAlpha;
+
     public static PlayerHealth Instance {  get; private set; }
 
     private bool playerDied;
@@ -25,6 +28,8 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
     private void Start()
     {
         playerDied = false;
+
+        playerAlpha = 1.0f;
     }
 
     private void Awake()
@@ -44,6 +49,8 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
 
     void Update()
     {
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, playerAlpha);
+
         // Update the player and house HP slider values based on player and house health, respectively
         playerHP.value = playerHealth;
         houseHP.value = houseHealth;
@@ -51,11 +58,25 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
         if (playerDied)
         {
             deathTimer += Time.deltaTime;
+
+            playerAlpha -= 0.5f * Time.deltaTime;
+
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
 
         else
         {
             deathTimer = 0f;
+
+            playerAlpha = 1.0f;
+
+            gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        }
+
+        // After the death sound is done playing, call the die function
+        if (deathTimer >= 2f)
+        {
+            Die();
         }
     }
 
@@ -79,18 +100,13 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
             // Play the player death sound
             playerSoundEffect.clip = Resources.Load<AudioClip>("SFX/Player/player death");
             playerSoundEffect.Play();
-
-            // After the death sound is done playing, call the die function
-            if (deathTimer >= 2f)
-            {
-                Die();
-            }
         }
     }
 
     private void Die()
     {
         //Game over logic
+        SceneManager.LoadScene(2); // Load game over scene
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

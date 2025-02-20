@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class zombie : MonoBehaviour, IDamagable
 {
-    float deathTimer = 0f;
     int enemyLayerMask;
     int layerMask;
     public zombieGen zombieGen;
@@ -29,9 +28,13 @@ public class zombie : MonoBehaviour, IDamagable
 
     private bool zombieDied;
 
+    private float zombieAlpha;
+
     private void Start()
     {
         zombieDied = false;
+
+        zombieAlpha = 1.0f;
     }
 
     // Start is called before the first frame update
@@ -54,14 +57,25 @@ public class zombie : MonoBehaviour, IDamagable
 
     private void Update()
     {
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, zombieAlpha);
+
         if (zombieDied)
         {
-            deathTimer += Time.deltaTime;
+            zombieAlpha -= 0.5f * Time.deltaTime;
+
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
 
         else
         {
-            deathTimer = 0f;
+            zombieAlpha = 1.0f;
+
+            gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        }
+
+        if (zombieAlpha <= 0.0f)
+        {
+            Destroy(gameObject);
         }
 
         if (zombieHealth > 0)
@@ -101,7 +115,8 @@ public class zombie : MonoBehaviour, IDamagable
         }
     }
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         zombieGen.count -= 1;
     }
     // Update is called once per frame
@@ -229,7 +244,7 @@ public class zombie : MonoBehaviour, IDamagable
         }
     }
 
-    public static float zombieHealth =100f;
+    private float zombieHealth = 100f;
 
     public void Damage(float damageAmount)
     {
@@ -267,11 +282,6 @@ public class zombie : MonoBehaviour, IDamagable
             // Play the zombie death sound
             zombieHealthSounds.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie death");
             zombieHealthSounds.Play();
-
-            if (deathTimer >= 3.0f)
-            {
-                Destroy(gameObject);
-            }
         }
     }
 }
