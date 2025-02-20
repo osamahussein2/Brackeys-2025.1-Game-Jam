@@ -38,7 +38,7 @@ public class BulletPrefab : MonoBehaviour
         currentPosition = transform.position;
         Vector3 difference = currentPosition - lastPosition;
         RaycastHit2D hit = Physics2D.Raycast(currentPosition, lastPosition, difference.magnitude);
-        if (hit)
+        if (hit && hit.collider.gameObject.name != "Player")
         {
             if (hit.collider.gameObject.TryGetComponent<IDamagable>(out IDamagable damagableObject))
             {
