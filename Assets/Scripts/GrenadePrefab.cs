@@ -7,8 +7,8 @@ public class GrenadePrefab : MonoBehaviour
 {
     float timer = 0f;
     private float lifeTime = 1.5f;
-    private float grenadeDamageAmount = 75f;
-    private float grenadeSpeed = 30f;
+    private float grenadeDamageAmount = 80f;
+    private float grenadeSpeed = 40f;
     private Vector3 moveDirection;
 
     private Vector3 currentPosition;

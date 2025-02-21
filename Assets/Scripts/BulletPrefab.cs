@@ -6,8 +6,8 @@ using UnityEngine;
 public class BulletPrefab : MonoBehaviour
 {
     private float lifeTime = 1.5f;
-    private float bulletDamageAmount = 60f;
-    private float bulletSpeed = 50f;
+    private float bulletDamageAmount;
+    private float bulletSpeed;
     private Vector3 moveDirection;
 
     private Vector3 currentPosition;
@@ -65,12 +65,20 @@ public class BulletPrefab : MonoBehaviour
                 bulletSound.clip = Resources.Load<AudioClip>($"SFX/Weapons/smg {smgSoundIndex}");
                 bulletSound.Play();
 
+                bulletSpeed = 50f;
+
+                bulletDamageAmount = 20f;
+
                 break;
 
             case 3:
                 // pistol
                 bulletSound.clip = Resources.Load<AudioClip>($"SFX/Weapons/pistol {pistolSoundIndex}");
                 bulletSound.Play();
+
+                bulletSpeed = 25f;
+
+                bulletDamageAmount = 10f;
 
                 break;
 
@@ -79,12 +87,20 @@ public class BulletPrefab : MonoBehaviour
                 bulletSound.clip = Resources.Load<AudioClip>($"SFX/Weapons/machine gun {machineGunSoundIndex}");
                 bulletSound.Play();
 
+                bulletSpeed = 100f;
+
+                bulletDamageAmount = 60f;
+
                 break;
 
             case 5:
                 // shotgun
                 bulletSound.clip = Resources.Load<AudioClip>("SFX/Weapons/shotgun");
                 bulletSound.Play();
+
+                bulletSpeed = 15f;
+
+                bulletDamageAmount = 70f;
 
                 break;
 
@@ -99,6 +115,10 @@ public class BulletPrefab : MonoBehaviour
                 // sniper
                 bulletSound.clip = Resources.Load<AudioClip>("SFX/Weapons/sniper");
                 bulletSound.Play();
+
+                bulletSpeed = 10f;
+
+                bulletDamageAmount = 100f;
 
                 break;
 

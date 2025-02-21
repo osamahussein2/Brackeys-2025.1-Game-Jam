@@ -165,6 +165,7 @@ public class PlayerShoot : MonoBehaviour
             if (!fist.IsDestroyed()) Destroy(fist);
             if (!bullet.IsDestroyed()) Destroy(bullet);
             if (!bat.IsDestroyed()) Destroy(bat);
+            if (!grenade.IsDestroyed()) Destroy(grenade);
         }
     }
     /*
