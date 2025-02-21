@@ -21,6 +21,8 @@ public class GrenadePrefab : MonoBehaviour
         grenadeSound = GetComponent<AudioSource>();
 
         PlayGrenadeSound();
+
+        gameObject.GetComponent<Animator>().SetBool("grenadeExplode", false);
     }
 
     private void Awake()
@@ -40,6 +42,8 @@ public class GrenadePrefab : MonoBehaviour
                 damagableObject.Damage(grenadeDamageAmount);
 
                 moveDirection = Vector3.zero;
+
+                gameObject.GetComponent<Animator>().SetBool("grenadeExplode", true);
 
                 grenadeSound.clip = Resources.Load<AudioClip>($"SFX/Weapons/grenade boom");
                 grenadeSound.Play();

@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 5758417757333114524}
   - component: {fileID: 7023348243468001475}
   - component: {fileID: 2845471559443660292}
+  - component: {fileID: 16122428089163981}
   m_Layer: 0
   m_Name: GrenadePrefab
   m_TagString: Untagged
@@ -130,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd7eafd733249c4497632f9f1e24670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grenadeSprite: {fileID: 21300000, guid: e7e22d87d3cad1c41b879dcb68026c66, type: 3}
 --- !u!82 &2845471559443660292
 AudioSource:
   m_ObjectHideFlags: 0
@@ -226,3 +228,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &16122428089163981
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5794230446669643111}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ec3a26948937c94c96c201eb334c36c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
