@@ -282,6 +282,8 @@ public class zombie : MonoBehaviour, IDamagable
             // Play the zombie death sound
             zombieHealthSounds.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie death");
             zombieHealthSounds.Play();
+
+            gameObject.GetComponent<Animator>().Play("ZombieDeath");
         }
     }
 }

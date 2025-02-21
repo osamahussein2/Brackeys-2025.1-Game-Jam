@@ -98,6 +98,8 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
             // Play the player death sound
             playerSoundEffect.clip = Resources.Load<AudioClip>("SFX/Player/player death");
             playerSoundEffect.Play();
+
+            gameObject.GetComponent<Animator>().Play("PlayerDeath");
         }
     }
 
@@ -122,7 +124,7 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
         if (collision.gameObject.tag == "Player" && playerHealth > 0f)
         {
             // Damage the player
-            Damage(5f * Time.deltaTime);
+            Damage(1f * Time.deltaTime);
 
             if (!playerSoundEffect.isPlaying)
             {
