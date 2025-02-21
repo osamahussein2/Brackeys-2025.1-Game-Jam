@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
@@ -27,106 +28,118 @@ public class PlayerShoot : MonoBehaviour
 
     public void Shoot()
     {
-        // If player is moving and the cross hair is pointing where the player is currently facing
-        // And if the player is in an idle state as well
-        if (PlayerMove.playerMovingUp && crosshair.transform.position.y > transform.position.y ||
-            PlayerMove.playerMovingDown && crosshair.transform.position.y < transform.position.y ||
-            PlayerMove.playerMovingRight && crosshair.transform.position.x > transform.position.x ||
-            PlayerMove.playerMovingLeft && crosshair.transform.position.x < transform.position.x ||
-            !PlayerMove.playerMovingUp && !PlayerMove.playerMovingDown && !PlayerMove.playerMovingRight &&
-            !PlayerMove.playerMovingLeft)
+        if (!PlayerHealth.playerDied && !menuLoader.gamePaused && Instance != null)
         {
-            switch (swap_items.curr_item)
+            // If player is moving and the cross hair is pointing where the player is currently facing
+            // And if the player is in an idle state as well
+            if (PlayerMove.playerMovingUp && crosshair.transform.position.y > transform.position.y ||
+                PlayerMove.playerMovingDown && crosshair.transform.position.y < transform.position.y ||
+                PlayerMove.playerMovingRight && crosshair.transform.position.x > transform.position.x ||
+                PlayerMove.playerMovingLeft && crosshair.transform.position.x < transform.position.x ||
+                !PlayerMove.playerMovingUp && !PlayerMove.playerMovingDown && !PlayerMove.playerMovingRight &&
+                !PlayerMove.playerMovingLeft)
             {
-                case 0:
-                    direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
-                        Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+                switch (swap_items.curr_item)
+                {
+                    case 0:
+                        direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                            Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
 
-                    fist = Instantiate(fistPrefab, transform.position + direction,
-                        Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<FistPrefab>();
+                        fist = Instantiate(fistPrefab, transform.position + direction,
+                            Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<FistPrefab>();
 
-                    fist.transform.parent = GameObject.Find("game").GetComponent<Transform>();
+                        fist.transform.parent = GameObject.Find("game").GetComponent<Transform>();
 
-                    fist.SetFistMoveDirection(direction);
+                        fist.SetFistMoveDirection(direction);
 
-                    break;
-                case 1:
-                    // bat
-                    break;
-                case 2:
-                    // smg
-                    direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
-                        Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+                        break;
+                    case 1:
+                        // bat
+                        break;
+                    case 2:
+                        // smg
+                        direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                            Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
 
-                    bullet = Instantiate(bulletPrefab, transform.position + direction,
-                        Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+                        bullet = Instantiate(bulletPrefab, transform.position + direction,
+                            Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
 
-                    bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
+                        bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
 
-                    bullet.SetBulletMoveDirection(direction);
+                        bullet.SetBulletMoveDirection(direction);
 
-                    break;
-                case 3:
-                    // pistol
-                    direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
-                        Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+                        break;
+                    case 3:
+                        // pistol
+                        direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                            Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
 
-                    bullet = Instantiate(bulletPrefab, transform.position + direction,
-                        Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+                        bullet = Instantiate(bulletPrefab, transform.position + direction,
+                            Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
 
-                    bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
+                        bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
 
-                    bullet.SetBulletMoveDirection(direction);
+                        bullet.SetBulletMoveDirection(direction);
 
-                    break;
-                case 4:
-                    // mg
-                    direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
-                        Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+                        break;
+                    case 4:
+                        // mg
+                        direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                            Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
 
-                    bullet = Instantiate(bulletPrefab, transform.position + direction,
-                        Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+                        bullet = Instantiate(bulletPrefab, transform.position + direction,
+                            Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
 
-                    bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
+                        bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
 
-                    bullet.SetBulletMoveDirection(direction);
+                        bullet.SetBulletMoveDirection(direction);
 
-                    break;
-                case 5:
-                    // shotgun
-                    direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
-                        Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+                        break;
+                    case 5:
+                        // shotgun
+                        direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                            Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
 
-                    bullet = Instantiate(bulletPrefab, transform.position + direction,
-                        Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+                        bullet = Instantiate(bulletPrefab, transform.position + direction,
+                            Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
 
-                    bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
+                        bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
 
-                    bullet.SetBulletMoveDirection(direction);
+                        bullet.SetBulletMoveDirection(direction);
 
-                    break;
-                case 6:
-                    // grenade
-                    break;
-                case 7:
-                    // sniper
-                    direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
-                        Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+                        break;
+                    case 6:
+                        // grenade
+                        break;
+                    case 7:
+                        // sniper
+                        direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                            Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
 
-                    bullet = Instantiate(bulletPrefab, transform.position + direction,
-                        Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
+                        bullet = Instantiate(bulletPrefab, transform.position + direction,
+                            Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BulletPrefab>();
 
-                    bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
+                        bullet.transform.parent = GameObject.Find("game").GetComponent<Transform>();
 
-                    bullet.SetBulletMoveDirection(direction);
+                        bullet.SetBulletMoveDirection(direction);
 
-                    break;
-                default:
-                    // none
-                    break;
-                    
+                        break;
+                    default:
+                        // none
+                        break;
 
+
+                }
             }
+        }
+
+        // Else if player has died
+        else if (PlayerHealth.playerDied && !menuLoader.gamePaused)
+        {
+            direction = Vector3.zero;
+
+            if (!fist.IsDestroyed()) Destroy(fist);
+            if (!bullet.IsDestroyed()) Destroy(bullet);
         }
     }
     /*

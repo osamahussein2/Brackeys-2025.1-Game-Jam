@@ -6,10 +6,15 @@ public class menuLoader : MonoBehaviour
 {
     public GameObject menu;
     public GameObject game;
+
+    public static bool gamePaused;
     // Start is called before the first frame update
     void Start()
     {
-        
+        game.SetActive(true);
+        menu.SetActive(false);
+
+        gamePaused = false;
     }
 
     // Update is called once per frame
@@ -19,6 +24,8 @@ public class menuLoader : MonoBehaviour
         {
             game.SetActive(false);
             menu.SetActive(true);
+
+            gamePaused = true;
         }
     }
 }

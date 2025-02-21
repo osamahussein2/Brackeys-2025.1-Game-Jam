@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class PlayerHealth :MonoBehaviour,  IDamagable
 {
     private float playerHealth = 100f;
-    private float houseHealth = 100f;
+    //private float houseHealth = 100f;
 
     [SerializeField] private Slider playerHP;
-    [SerializeField] private Slider houseHP;
+    //[SerializeField] private Slider houseHP;
 
     public GameObject bloodPrefab;
 
@@ -23,26 +23,24 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
 
     public static PlayerHealth Instance {  get; private set; }
 
-    private bool playerDied;
+    public static bool playerDied;
 
     private void Start()
     {
         playerDied = false;
 
         playerAlpha = 1.0f;
+
+        // Start the player health to its max health
+        playerHealth = playerHP.maxValue;
+
+        // Update the player health slider with it
+        playerHP.value = playerHealth;
     }
 
     private void Awake()
     {
         Instance = this;
-
-        // Start the player and house health to their max health
-        playerHealth = playerHP.maxValue;
-        houseHealth = houseHP.maxValue;
-
-        // Set the player and house HP slider values equal to their initialized player and house health, respectively
-        playerHP.value = playerHealth;
-        houseHP.value = houseHealth;
 
         playerSoundEffect = GetComponent<AudioSource>();
     }
@@ -53,7 +51,7 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
 
         // Update the player and house HP slider values based on player and house health, respectively
         playerHP.value = playerHealth;
-        houseHP.value = houseHealth;
+        //houseHP.value = houseHealth;
 
         if (playerDied)
         {
@@ -124,7 +122,7 @@ public class PlayerHealth :MonoBehaviour,  IDamagable
         if (collision.gameObject.tag == "Player" && playerHealth > 0f)
         {
             // Damage the player
-            Damage(1f * Time.deltaTime);
+            Damage(5f * Time.deltaTime);
 
             if (!playerSoundEffect.isPlaying)
             {

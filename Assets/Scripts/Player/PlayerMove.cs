@@ -1,7 +1,6 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -41,86 +40,92 @@ public class PlayerMove : MonoBehaviour
     }
     private void Update()
     {
-        if (isDashing)
+        if (!PlayerHealth.playerDied)
         {
-            RaycastHit2D hit = Physics2D.CircleCast(gameObject.transform.position, playerRadius, dashDirection, dashDistance * Time.deltaTime, playerCollisionLayers);
-            if (hit)
+            if (isDashing)
             {
-                isDashing = false;
+                RaycastHit2D hit = Physics2D.CircleCast(gameObject.transform.position, playerRadius, dashDirection, dashDistance * Time.deltaTime, playerCollisionLayers);
+                if (hit)
+                {
+                    isDashing = false;
+                }
+                else
+                {
+                    rb.MovePosition(transform.position + (new Vector3(dashDirection.x, dashDirection.y, 0) * dashDistance * dashSpeed * Time.deltaTime));
+                    if ((transform.position - dashStartPos).magnitude >= dashDistance)
+                    {
+                        isDashing = false;
+                        dashCooldownTimer = 0f;
+                    }
+                }
             }
             else
             {
-                rb.MovePosition(transform.position + (new Vector3(dashDirection.x, dashDirection.y, 0) * dashDistance * dashSpeed * Time.deltaTime));
-                if ((transform.position - dashStartPos).magnitude >= dashDistance)
-                {
-                    isDashing = false;
-                    dashCooldownTimer = 0f;
-                }
+                if (dashCooldownTimer <= 1f) { dashCooldownTimer += Time.deltaTime; }
             }
-        }
-        else
-        {
-            if (dashCooldownTimer <= 1f) { dashCooldownTimer += Time.deltaTime; }
-        }
 
-        PlayerBoundaries();
+            PlayerBoundaries();
+        }
     }
 
     public void ProccessMove(Vector2 direction, bool isSprinting)
     {
-        if (!isDashing)
+        if (!PlayerHealth.playerDied)
         {
-            if (!isSprinting) { direction *= 0.6f; }
-            rb.velocity = direction * speed;
-        }
+            if (!isDashing)
+            {
+                if (!isSprinting) { direction *= 0.6f; }
+                rb.velocity = direction * speed;
+            }
 
-        // Otherwise, play the walking animation
-        if (Input.GetKey(KeyCode.W))
-        {
-            playerMovingUp = true;
+            // Otherwise, play the walking animation
+            if (Input.GetKey(KeyCode.W))
+            {
+                playerMovingUp = true;
 
-            playerSprite.flipY = false; // Don't flip the sprite vertically
-        }
+                playerSprite.flipY = false; // Don't flip the sprite vertically
+            }
 
-        else if (!Input.GetKey(KeyCode.W))
-        {
-            playerMovingUp = false;
-        }
+            else if (!Input.GetKey(KeyCode.W))
+            {
+                playerMovingUp = false;
+            }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            playerMovingLeft = true;
+            if (Input.GetKey(KeyCode.A))
+            {
+                playerMovingLeft = true;
 
-            playerSprite.flipX = true; // Flip the sprite horizontally
-        }
+                playerSprite.flipX = true; // Flip the sprite horizontally
+            }
 
-        else if (!Input.GetKey(KeyCode.A))
-        {
-            playerMovingLeft = false;
-        }
+            else if (!Input.GetKey(KeyCode.A))
+            {
+                playerMovingLeft = false;
+            }
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            playerMovingDown = true;
+            if (Input.GetKey(KeyCode.S))
+            {
+                playerMovingDown = true;
 
-            playerSprite.flipY = false; // Don't flip the sprite vertically
-        }
+                playerSprite.flipY = false; // Don't flip the sprite vertically
+            }
 
-        else if (!Input.GetKey(KeyCode.S))
-        {
-            playerMovingDown = false;
-        }
+            else if (!Input.GetKey(KeyCode.S))
+            {
+                playerMovingDown = false;
+            }
 
-        if (Input.GetKey(KeyCode.D))
-        {
-            playerMovingRight = true;
+            if (Input.GetKey(KeyCode.D))
+            {
+                playerMovingRight = true;
 
-            playerSprite.flipX = false; // Don't flip the sprite horizontally
-        }
+                playerSprite.flipX = false; // Don't flip the sprite horizontally
+            }
 
-        else if (!Input.GetKey(KeyCode.D))
-        {
-            playerMovingRight = false;
+            else if (!Input.GetKey(KeyCode.D))
+            {
+                playerMovingRight = false;
+            }
         }
 
         playerAnimator.SetBool("IsWalkingUp", playerMovingUp);
@@ -132,15 +137,18 @@ public class PlayerMove : MonoBehaviour
     public LayerMask playerCollisionLayers;
     public void Dash(Vector2 direction)
     {
-        if (dashCooldownTimer < dashCooldownTimerMax) { return; }
-
-        // Only make the player dash when they're actually walking
-        if (playerAnimator.GetBool("IsWalkingUp") == true || playerAnimator.GetBool("IsWalkingDown") == true ||
-            playerAnimator.GetBool("IsWalkingRight") == true || playerAnimator.GetBool("IsWalkingLeft") == true)
+        if (!PlayerHealth.playerDied)
         {
-            isDashing = true;
-            dashDirection = direction;
-            dashStartPos = transform.position;
+            if (dashCooldownTimer < dashCooldownTimerMax) { return; }
+
+            // Only make the player dash when they're actually walking
+            if (playerAnimator.GetBool("IsWalkingUp") == true || playerAnimator.GetBool("IsWalkingDown") == true ||
+                playerAnimator.GetBool("IsWalkingRight") == true || playerAnimator.GetBool("IsWalkingLeft") == true)
+            {
+                isDashing = true;
+                dashDirection = direction;
+                dashStartPos = transform.position;
+            }
         }
     }
 

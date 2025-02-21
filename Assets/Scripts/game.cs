@@ -24,6 +24,8 @@ public class gameLoader : MonoBehaviour
             {
                 zombie.SetActive(true);
             }
+
+            menuLoader.gamePaused = false;
         }
     }
 }
