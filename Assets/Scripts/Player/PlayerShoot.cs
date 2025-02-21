@@ -12,6 +12,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private GameObject fistPrefab;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject batPrefab;
+    [SerializeField] private GameObject grenadePrefab;
     [SerializeField] private GameObject mainCamera;
 
     [SerializeField] private GameObject crosshair;
@@ -22,6 +23,7 @@ public class PlayerShoot : MonoBehaviour
     private FistPrefab fist;
     private BulletPrefab bullet;
     private BatPrefab bat;
+    private GrenadePrefab grenade;
 
     private void Awake()
     {
@@ -122,6 +124,16 @@ public class PlayerShoot : MonoBehaviour
                         break;
                     case 6:
                         // grenade
+                        direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                            Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+
+                        grenade = Instantiate(grenadePrefab, transform.position + direction,
+                            Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<GrenadePrefab>();
+
+                        grenade.transform.parent = GameObject.Find("game").GetComponent<Transform>();
+
+                        grenade.SetGrenadeMoveDirection(direction);
+
                         break;
                     case 7:
                         // sniper
