@@ -8,6 +8,7 @@ public class menuLoader : MonoBehaviour
     public GameObject game;
 
     public static bool gamePaused;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,12 +21,20 @@ public class menuLoader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !gamePaused)
         {
             game.SetActive(false);
             menu.SetActive(true);
 
             gamePaused = true;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Escape) && gamePaused)
+        {
+            menu.SetActive(false);
+            game.SetActive(true);
+
+            gamePaused = false;
         }
     }
 }
