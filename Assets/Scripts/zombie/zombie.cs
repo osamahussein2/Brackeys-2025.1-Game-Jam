@@ -30,11 +30,15 @@ public class zombie : MonoBehaviour, IDamagable
 
     private float zombieAlpha;
 
+    private int zombieDamagedFromFistOrBatSoundIndex;
+
     private void Start()
     {
         zombieDied = false;
 
         zombieAlpha = 1.0f;
+
+        zombieDamagedFromFistOrBatSoundIndex = Random.Range(1, 3);
     }
 
     // Start is called before the first frame update
@@ -112,6 +116,12 @@ public class zombie : MonoBehaviour, IDamagable
             {
                 zombieSounds.Play();
             }
+        }
+
+        // If the zombie is still alive and the zombie health sounds are not playing, randomize the zombie damage from fist or bad sound
+        if (!zombieDied && !zombieHealthSounds.isPlaying)
+        {
+            zombieDamagedFromFistOrBatSoundIndex = Random.Range(1, 3);
         }
     }
 
@@ -252,9 +262,19 @@ public class zombie : MonoBehaviour, IDamagable
 
         if (damageAmount > 0 && zombieHealth > 0)
         {
-            // Play the zombie damaged from bullet sound for now
-            zombieHealthSounds.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie takes bullet");
-            zombieHealthSounds.Play();
+            if (swap_items.curr_item >= 2 && swap_items.curr_item <= 7)
+            {
+                // Play the zombie damaged from bullet sound
+                zombieHealthSounds.clip = Resources.Load<AudioClip>("SFX/Zombies/zombie takes bullet");
+                zombieHealthSounds.Play();
+            }
+
+            else if (swap_items.curr_item >= 0 && swap_items.curr_item <= 1)
+            {
+                // Play the zombie damaged from fist/bat sound
+                zombieHealthSounds.clip = Resources.Load<AudioClip>($"SFX/Zombies/zombie takes fist or bat {zombieDamagedFromFistOrBatSoundIndex}");
+                zombieHealthSounds.Play();
+            }
         }
 
         // Player the different zombie damage sound depending on weapon
