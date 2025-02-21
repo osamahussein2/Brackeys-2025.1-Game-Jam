@@ -17,11 +17,13 @@ public class BulletPrefab : MonoBehaviour
 
     private int smgSoundIndex;
     private int pistolSoundIndex;
+    private int machineGunSoundIndex;
 
     private void Start()
     {
         smgSoundIndex = Random.Range(1, 5);
         pistolSoundIndex = Random.Range(1, 3);
+        machineGunSoundIndex = Random.Range(1, 3);
 
         bulletSound = GetComponent<AudioSource>();
 
@@ -74,8 +76,8 @@ public class BulletPrefab : MonoBehaviour
 
             case 4:
                 // mg
-                //bulletSound.clip = Resources.Load<AudioClip>("SFX/Weapons/missing machine gun sound");
-                //bulletSound.Play();
+                bulletSound.clip = Resources.Load<AudioClip>($"SFX/Weapons/machine gun {machineGunSoundIndex}");
+                bulletSound.Play();
 
                 break;
 
