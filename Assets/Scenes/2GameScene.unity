@@ -3986,6 +3986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fistPrefab: {fileID: 7578975240946673781, guid: a862456668db14668978aa444fb249be, type: 3}
   bulletPrefab: {fileID: 7578975240946673781, guid: 56d76ae2b426c254a9f51374fdabe55e, type: 3}
+  batPrefab: {fileID: 731332983025515682, guid: 09655d49392a63943bd5f67643cd2693, type: 3}
   mainCamera: {fileID: 519420028}
   crosshair: {fileID: 503862317}
 --- !u!114 &1295679147

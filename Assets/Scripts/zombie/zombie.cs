@@ -260,7 +260,7 @@ public class zombie : MonoBehaviour, IDamagable
     {
         zombieHealth -= damageAmount;
 
-        if (damageAmount > 0 && zombieHealth > 0)
+        if (damageAmount > 0)
         {
             if (swap_items.curr_item >= 2 && swap_items.curr_item <= 7)
             {

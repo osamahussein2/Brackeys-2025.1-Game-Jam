@@ -11,6 +11,7 @@ public class PlayerShoot : MonoBehaviour
     // public GameObject hookLinePrefab;
     [SerializeField] private GameObject fistPrefab;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject batPrefab;
     [SerializeField] private GameObject mainCamera;
 
     [SerializeField] private GameObject crosshair;
@@ -20,6 +21,7 @@ public class PlayerShoot : MonoBehaviour
     private Vector3 direction;
     private FistPrefab fist;
     private BulletPrefab bullet;
+    private BatPrefab bat;
 
     private void Awake()
     {
@@ -55,6 +57,16 @@ public class PlayerShoot : MonoBehaviour
                         break;
                     case 1:
                         // bat
+                        direction = (new Vector3(Input.mousePosition.x - (Screen.width / 2 + transform.position.x - mainCamera.transform.position.x),
+                            Input.mousePosition.y - (Screen.height / 2 + transform.position.y - mainCamera.transform.position.y))).normalized;
+
+                        bat = Instantiate(batPrefab, transform.position + direction,
+                            Quaternion.FromToRotation(new Vector3(1, 0, 0), direction)).GetComponent<BatPrefab>();
+
+                        bat.transform.parent = GameObject.Find("game").GetComponent<Transform>();
+
+                        bat.SetBatMoveDirection(direction);
+
                         break;
                     case 2:
                         // smg
@@ -140,6 +152,7 @@ public class PlayerShoot : MonoBehaviour
 
             if (!fist.IsDestroyed()) Destroy(fist);
             if (!bullet.IsDestroyed()) Destroy(bullet);
+            if (!bat.IsDestroyed()) Destroy(bat);
         }
     }
     /*
