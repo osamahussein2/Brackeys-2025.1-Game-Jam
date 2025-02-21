@@ -25,6 +25,8 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] private AudioSource footstepSounds;
 
+    [SerializeField] private Camera followCamera;
+
     private int concreteSoundIndex;
     private int mudSoundIndex;
     private int grassSoundIndex;
@@ -155,24 +157,45 @@ public class PlayerMove : MonoBehaviour
     private void PlayerBoundaries()
     {
         // Player boundaries only
-        if (transform.position.x >= 19.9f)
+        if (transform.position.x >= 37.0f)
         {
-            transform.position = new Vector2(19.9f, transform.position.y);
+            transform.position = new Vector2(37.0f, transform.position.y);
         }
 
-        else if (transform.position.x <= -19.9f)
+        else if (transform.position.x <= -37.0f)
         {
-            transform.position = new Vector2(-19.9f, transform.position.y);
+            transform.position = new Vector2(-37.0f, transform.position.y);
         }
 
-        if (transform.position.y >= 15.9f)
+        if (transform.position.y >= 22.5f)
         {
-            transform.position = new Vector2(transform.position.x, 15.9f);
+            transform.position = new Vector2(transform.position.x, 22.5f);
         }
 
-        else if (transform.position.y <= -15.9f)
+        else if (transform.position.y <= -22.5f)
         {
-            transform.position = new Vector2(transform.position.x, -15.9f);
+            transform.position = new Vector2(transform.position.x, -22.5f);
+        }
+
+        // Camera bounds
+        if (followCamera.transform.position.x <= -23.5f)
+        {
+            followCamera.transform.position = new Vector3(-23.5f, followCamera.transform.position.y, followCamera.transform.position.z);
+        }
+
+        else if (followCamera.transform.position.x >= 23.5f)
+        {
+            followCamera.transform.position = new Vector3(23.5f, followCamera.transform.position.y, followCamera.transform.position.z);
+        }
+
+        if (followCamera.transform.position.y <= -15.9f)
+        {
+            followCamera.transform.position = new Vector3(followCamera.transform.position.x, -15.9f, followCamera.transform.position.z);
+        }
+
+        else if (followCamera.transform.position.y >= 15.9f)
+        {
+            followCamera.transform.position = new Vector3(followCamera.transform.position.x, 15.9f, followCamera.transform.position.z);
         }
     }
 
@@ -259,7 +282,10 @@ public class PlayerMove : MonoBehaviour
         if (collider.gameObject.tag == "Concrete" || collider.gameObject.tag == "Mud" ||
             collider.gameObject.tag == "Grass")
         {
-            footstepSounds.clip = null;
+            if (!footstepSounds.isPlaying)
+            {
+                footstepSounds.Play();
+            }
         }
     }
 }
