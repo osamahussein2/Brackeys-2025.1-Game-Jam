@@ -14,6 +14,8 @@ public class LoadingScreen : MonoBehaviour
 
     public float loadingSpeed;
 
+    [SerializeField] private AudioSource menuMusic;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +23,22 @@ public class LoadingScreen : MonoBehaviour
 
         // Randomize the loading times
         loadingTime = Random.Range(3f, 6f);
+
+        if (menuMusic.clip == null)
+        {
+            menuMusic.clip = Resources.Load<AudioClip>("Music/Game menu theme");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
+
+        if (!menuMusic.isPlaying)
+        {
+            menuMusic.Play();
+        }
 
         // Load next scene after reaching the loading time amount
         if (timer >= loadingTime)
