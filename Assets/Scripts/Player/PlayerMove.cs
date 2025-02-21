@@ -67,6 +67,11 @@ public class PlayerMove : MonoBehaviour
             }
 
             PlayerBoundaries();
+
+            if (!footstepSounds.isPlaying  && footstepSounds.clip != null)
+            {
+                footstepSounds.Play();
+            }
         }
     }
 
@@ -260,30 +265,6 @@ public class PlayerMove : MonoBehaviour
             if (grassSoundIndex == 2)
             {
                 footstepSounds.clip = Resources.Load<AudioClip>("SFX/Footsteps/grassfootsteps4");
-                footstepSounds.Play();
-            }
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Concrete" || collision.gameObject.tag == "Mud" ||
-            collision.gameObject.tag == "Grass")
-        {
-            if (!footstepSounds.isPlaying)
-            {
-                footstepSounds.Play();
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collider)
-    {
-        if (collider.gameObject.tag == "Concrete" || collider.gameObject.tag == "Mud" ||
-            collider.gameObject.tag == "Grass")
-        {
-            if (!footstepSounds.isPlaying)
-            {
                 footstepSounds.Play();
             }
         }
