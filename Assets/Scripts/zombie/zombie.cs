@@ -147,6 +147,8 @@ public class zombie : MonoBehaviour, IDamagable
         {
             zombieAnimator.SetBool("IsMovingLeft", true);
             zombieAnimator.SetBool("IsMovingRight", false);
+            zombieAnimator.SetBool("IsMovingDown", false);
+            zombieAnimator.SetBool("IsMovingUp", false);
 
             zombieSprite.flipX = true;
         }
@@ -155,6 +157,8 @@ public class zombie : MonoBehaviour, IDamagable
         {
             zombieAnimator.SetBool("IsMovingRight", true);
             zombieAnimator.SetBool("IsMovingLeft", false);
+            zombieAnimator.SetBool("IsMovingDown", false);
+            zombieAnimator.SetBool("IsMovingUp", false);
 
             zombieSprite.flipX = false;
         }
@@ -163,6 +167,8 @@ public class zombie : MonoBehaviour, IDamagable
         {
             zombieAnimator.SetBool("IsMovingDown", true);
             zombieAnimator.SetBool("IsMovingUp", false);
+            zombieAnimator.SetBool("IsMovingRight", false);
+            zombieAnimator.SetBool("IsMovingLeft", false);
 
             zombieSprite.flipY = false;
         }
@@ -171,6 +177,8 @@ public class zombie : MonoBehaviour, IDamagable
         {
             zombieAnimator.SetBool("IsMovingUp", true);
             zombieAnimator.SetBool("IsMovingDown", false);
+            zombieAnimator.SetBool("IsMovingRight", false);
+            zombieAnimator.SetBool("IsMovingLeft", false);
 
             zombieSprite.flipY = false;
         }
@@ -203,6 +211,8 @@ public class zombie : MonoBehaviour, IDamagable
             {
                 zombieAnimator.SetBool("IsMovingLeft", true);
                 zombieAnimator.SetBool("IsMovingRight", false);
+                zombieAnimator.SetBool("IsMovingDown", false);
+                zombieAnimator.SetBool("IsMovingUp", false);
 
                 zombieSprite.flipX = true;
             }
@@ -211,6 +221,8 @@ public class zombie : MonoBehaviour, IDamagable
             {
                 zombieAnimator.SetBool("IsMovingRight", true);
                 zombieAnimator.SetBool("IsMovingLeft", false);
+                zombieAnimator.SetBool("IsMovingDown", false);
+                zombieAnimator.SetBool("IsMovingUp", false);
 
                 zombieSprite.flipX = false;
             }
@@ -219,6 +231,8 @@ public class zombie : MonoBehaviour, IDamagable
             {
                 zombieAnimator.SetBool("IsMovingDown", true);
                 zombieAnimator.SetBool("IsMovingUp", false);
+                zombieAnimator.SetBool("IsMovingRight", false);
+                zombieAnimator.SetBool("IsMovingLeft", false);
 
                 zombieSprite.flipY = false;
             }
@@ -227,6 +241,8 @@ public class zombie : MonoBehaviour, IDamagable
             {
                 zombieAnimator.SetBool("IsMovingUp", true);
                 zombieAnimator.SetBool("IsMovingDown", false);
+                zombieAnimator.SetBool("IsMovingRight", false);
+                zombieAnimator.SetBool("IsMovingLeft", false);
 
                 zombieSprite.flipY = false;
             }
