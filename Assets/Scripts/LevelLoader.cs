@@ -20,8 +20,8 @@ public class LevelLoader : MonoBehaviour
     {
         levelTimer += Time.deltaTime;
 
-        // After the level timer exceeded 2 minutes, switch levels and reset the level timer
-        if (levelTimer >= 120)
+        // After the level timer exceeded 30 seconds, switch levels and reset the level timer
+        if (levelTimer >= 30)
         {
             currentLevel += 1;
 

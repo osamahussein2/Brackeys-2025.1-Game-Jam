@@ -42,6 +42,8 @@ public class PlayerMove : MonoBehaviour
     }
     private void Update()
     {
+        PlayerBoundaries();
+
         if (!PlayerHealth.playerDied)
         {
             if (isDashing)
@@ -65,8 +67,6 @@ public class PlayerMove : MonoBehaviour
             {
                 if (dashCooldownTimer <= 1f) { dashCooldownTimer += Time.deltaTime; }
             }
-
-            PlayerBoundaries();
 
             if (!footstepSounds.isPlaying  && footstepSounds.clip != null)
             {
