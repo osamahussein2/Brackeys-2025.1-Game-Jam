@@ -1317,7 +1317,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Game Title
+  m_Text: Endless Life
 --- !u!222 &1582338601
 CanvasRenderer:
   m_ObjectHideFlags: 0
