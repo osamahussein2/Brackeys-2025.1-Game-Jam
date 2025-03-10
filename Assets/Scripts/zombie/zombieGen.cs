@@ -23,7 +23,7 @@ public class zombieGen : MonoBehaviour
     void FixedUpdate()
     {
         timer += 1f * Time.deltaTime;
-        if (timer > 0.5f && count < 50)
+        if (timer > 0.1f && count < 500)
         {
             Vector3 pos = player.transform.position;
             while (dist(pos, player.transform.position) < 2f)
